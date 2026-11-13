@@ -7,7 +7,13 @@
 @if($lesson->isl_video_url)<section class="mt-10"><h2 class="text-2xl font-semibold">ISL video resource</h2><p class="mt-3"><a class="underline" href="{{ $lesson->isl_video_url }}" target="_blank" rel="noopener noreferrer">Open ISL video in a new tab</a></p><p class="mt-2 text-sm text-neutral-600">External video resource. Captions and accessibility depend on the provider.</p></section>@endif
 @if($lesson->isl_guidance)<section class="mt-10 border p-5"><h2 class="text-2xl font-semibold">ISL-first guidance</h2><p class="mt-3 whitespace-pre-line">{{ $lesson->isl_guidance }}</p></section>@endif
 @if($lesson->activities->isNotEmpty())<section class="mt-12"><h2 class="text-2xl font-semibold">Practise your English</h2><p class="mt-2 text-neutral-700">Type your answer and check your understanding.</p>
-@foreach($lesson->activities as $activity)<article class="mt-5 border p-5"><h3 class="font-semibold">{{ $loop->iteration }}. {{ $activity->prompt }}</h3>
+@foreach($lesson->activities as $activity)<article class="mt-5 border p-5"><p class="text-xs font-semibold uppercase tracking-wider text-neutral-600">{{ str_replace('_',' ',$activity->activity_type) }}</p><h3 class="mt-2 font-semibold">{{ $loop->iteration }}. {{ $activity->prompt }}</h3>
+@if($activity->visual_prompt)<div class="mt-3 border-l-4 border-black bg-neutral-50 p-4"><p class="text-sm font-semibold">Visual learning scene</p><p class="mt-2 whitespace-pre-line">{{ $activity->visual_prompt }}</p></div>@endif
+@auth
+@if(isset($learnerProgress[$activity->id]))
+<p class="mt-2 text-sm">Your progress: {{ $learnerProgress[$activity->id]->attempts }} attempt(s) · {{ $learnerProgress[$activity->id]->is_correct ? 'Completed' : 'Practising' }}</p>
+@endif
+@endauth
 @if($activity->hint)<p class="mt-2 text-sm text-neutral-700">Hint: {{ $activity->hint }}</p>@endif
 @if(session('activity_feedback') && isset(session('activity_feedback')[$activity->id]))<p role="status" class="mt-3 font-semibold">{{ session('activity_feedback')[$activity->id] }}</p>@endif
 <form method="POST" action="{{ route('activities.check',$activity) }}" class="mt-4 flex flex-wrap gap-3">@csrf<label class="flex-1">Your answer<input required maxlength="255" name="answer" class="mt-1 block w-full border p-3"></label><button class="self-end border border-black px-5 py-3">Check answer</button></form></article>@endforeach</section>@endif
