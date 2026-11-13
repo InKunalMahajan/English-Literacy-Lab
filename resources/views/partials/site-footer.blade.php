@@ -1,0 +1,1 @@
+<footer class="ell-site-footer"><div class="ell-footer-inner"><span>English Literacy Lab · ISL-first English learning</span><a href="{{ route('curriculum.index') }}">Explore curriculum</a></div></footer>
