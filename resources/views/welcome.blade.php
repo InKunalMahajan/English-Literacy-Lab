@@ -1,22 +1,14 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="English Literacy Lab — ISL-first literacy learning and educational research.">
-    <title>English Literacy Lab</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
-    <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
-    <header class="border-b border-neutral-200 px-6 py-5">
-        <p class="font-semibold">English Literacy Lab <span class="text-neutral-600">(ELL)</span></p>
-    </header>
-    <main id="main" class="mx-auto max-w-4xl px-6 py-20">
-        <p class="mb-3 text-sm font-semibold uppercase tracking-wide">ISL-first learning</p>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">English literacy, designed for Deaf learners.</h1>
-        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-700">An accessible foundation for reading, writing, teacher feedback and responsible educational research.</p>
-        <p class="mt-10 border-l-4 border-neutral-900 pl-4 text-sm text-neutral-700">Development foundation — learning and research features are not yet available.</p>
-    </main>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ISL-first English literacy lessons, visual practice and inclusive learning."><title>English Literacy Lab</title>@vite(['resources/css/app.css','resources/js/app.js'])</head>
+<body><a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:bg-white focus:p-3">Skip to content</a>
+<header class="border-b"><nav aria-label="Main navigation" class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-5">
+<a href="{{ route('home') }}" class="font-bold">English Literacy Lab <span class="font-normal">(ELL)</span></a>
+<div class="flex flex-wrap gap-5 text-sm"><a class="underline" href="{{ route('curriculum.index') }}">Curriculum</a><a class="underline" href="#approach">Learning approach</a>@auth<a class="underline" href="{{ route('dashboard') }}">Dashboard</a>@else<a class="underline" href="{{ route('login') }}">Sign in</a>@endauth</div></nav></header>
+<main id="main"><section class="mx-auto max-w-6xl px-6 py-20 sm:py-28"><p class="text-sm font-semibold uppercase tracking-widest">Visual learning · Indian Sign Language first</p>
+<h1 class="mt-5 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-6xl">Build English literacy through meaning, visuals and practice.</h1>
+<p class="mt-7 max-w-2xl text-lg leading-relaxed text-neutral-700">Explore structured lessons in vocabulary, grammar, reading and writing. Designed for Deaf learners, with clear English and ISL guidance.</p>
+<div class="mt-9 flex flex-wrap gap-3"><a class="inline-block bg-black px-6 py-3 font-semibold text-white" href="{{ route('curriculum.index') }}">Explore curriculum</a><a class="inline-block border border-black px-6 py-3 font-semibold" href="#approach">How learning works</a></div></section>
+<section id="approach" class="border-t bg-neutral-50"><div class="mx-auto max-w-6xl px-6 py-16"><h2 class="text-3xl font-bold">A clear path to English literacy</h2><div class="mt-8 grid gap-5 md:grid-cols-3">
+<article class="border bg-white p-6"><p class="text-sm">01 / UNDERSTAND</p><h3 class="mt-3 text-xl font-bold">See the meaning</h3><p class="mt-3 text-neutral-700">Start with real-life examples and visual explanations before written English.</p></article>
+<article class="border bg-white p-6"><p class="text-sm">02 / LEARN</p><h3 class="mt-3 text-xl font-bold">Read and write</h3><p class="mt-3 text-neutral-700">Follow organised modules, units and lessons at your own pace.</p></article>
+<article class="border bg-white p-6"><p class="text-sm">03 / PRACTISE</p><h3 class="mt-3 text-xl font-bold">Check understanding</h3><p class="mt-3 text-neutral-700">Try short activities and receive immediate written feedback.</p></article>
+</div></div></section></main><footer class="border-t px-6 py-8 text-center text-sm text-neutral-600">English Literacy Lab · Independent ISL-first education platform</footer></body></html>
