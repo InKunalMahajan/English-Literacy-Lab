@@ -12,7 +12,7 @@ ELL is a standalone English literacy, ISL-first learning and educational researc
 | 7.2 | Organisation access | Retired; legacy tables removed by forward migration |
 | 8 | Curriculum catalogue, module/unit structure, editor lesson/activity CRUD, visual-text activities, individual practice progress and lesson completion | Implemented; local verification required for final activity-management update |
 | 9 | Private lesson image uploads, alt text, HTTPS ISL video references, text equivalents, draft access protection and accessible media displays | Implemented in code; local verification pending |
-| 10 | Reading, writing and vocabulary practice | Planned |
+| 10 | Reading comprehension questions, existing vocabulary exercises, private writing practice with revisions and learner dashboard drafts | Implemented in code; local verification pending |
 | 11 | Formal assessments, scoring, mastery and research-ready learning metrics (separate from Stage 8 practice tracking) | Planned |
 | 12 | Research ethics, consent and anonymised analytics | Planned |
 | 13 | Accessibility review, hardening and deployment | Planned |
