@@ -26,7 +26,7 @@ class LessonAssessmentTest extends TestCase {
    'user_id'=>$learner->id,'lesson_id'=>$lesson->id,'score_percent'=>50,'mastery_status'=>'developing',
   ]);
   $this->get('/dashboard')->assertOk()->assertSee('50%');
-  $this->actingAs($other)->get("/curriculum/{$lesson->id}/assessment")->assertDontSee('50%');
+  $this->actingAs($other)->get("/curriculum/{$lesson->id}/assessment")->assertOk()->assertSee('No assessment attempts yet.');
   $this->get('/dashboard')->assertDontSee('50%');
  }
  public function test_guests_and_draft_lessons_are_protected(): void {
