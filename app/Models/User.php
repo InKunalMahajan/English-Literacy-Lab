@@ -9,7 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $attributes = ['is_active' => true];
+    protected $attributes = ['is_active' => true, 'is_content_editor' => false];
 
     protected $fillable = ['name', 'email', 'password', 'is_active'];
 
@@ -21,6 +21,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_active' => 'boolean',
+            'is_content_editor' => 'boolean',
         ];
     }
 }
