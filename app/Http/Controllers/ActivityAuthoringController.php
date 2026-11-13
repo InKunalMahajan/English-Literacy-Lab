@@ -29,7 +29,7 @@ class ActivityAuthoringController extends Controller
             'answer'=>'required|string|max:255',
             'hint'=>'nullable|string|max:2000',
             'visual_prompt'=>'nullable|string|max:2000',
-            'activity_type'=>'required|in:short_answer,vocabulary,grammar,sentence_order,flashcard',
+            'activity_type'=>'required|in:short_answer,vocabulary,grammar,sentence_order,flashcard,reading_comprehension',
             'sort_order'=>'required|integer|min:0|max:100000',
         ]);
         $activity->update($data);
