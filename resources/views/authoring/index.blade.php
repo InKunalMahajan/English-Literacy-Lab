@@ -27,6 +27,7 @@
 <button class="border border-black px-4 py-2 md:col-span-2">Save lesson as draft</button></form></section>
 <section class="mt-8"><h2 class="text-xl font-semibold">4. Manage lessons and activities</h2><div class="mt-4 space-y-6">
 @forelse($lessons as $lesson)<article class="border p-5"><h3 class="font-semibold">{{ $lesson->title }} <span class="text-sm font-normal">({{ $lesson->is_published ? 'Published' : 'Draft' }})</span></h3>
+<p class="mt-3"><a class="underline" href="{{ route('authoring.lessons.edit',$lesson) }}">Edit or delete lesson</a></p>
 <form class="mt-3" method="POST" action="{{ route('authoring.lessons.publish',$lesson) }}">@csrf<button class="border px-3 py-2">{{ $lesson->is_published ? 'Unpublish' : 'Publish' }}</button></form>
 <form class="mt-4 grid gap-3 md:grid-cols-2" method="POST" action="{{ route('authoring.activities.store',$lesson) }}">@csrf
 <label>Activity question<input required name="prompt" maxlength="255" class="mt-1 w-full border p-2"></label>
