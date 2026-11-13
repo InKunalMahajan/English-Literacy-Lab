@@ -6,6 +6,7 @@ use App\Http\Controllers\LessonAuthoringController;
 use App\Http\Controllers\LessonActivityController;
 use App\Http\Controllers\LessonCompletionController;
 use App\Http\Controllers\LearnerDashboardController;
+use App\Http\Controllers\ActivityAuthoringController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -30,5 +31,8 @@ Route::middleware('auth')->group(function (): void {
     Route::delete('/authoring/lessons/{lesson}', [LessonAuthoringController::class, 'destroy'])->name('authoring.lessons.destroy');
     Route::post('/authoring/lessons/{lesson}/publish', [LessonAuthoringController::class, 'publish'])->name('authoring.lessons.publish');
     Route::post('/authoring/lessons/{lesson}/activities', [LessonAuthoringController::class, 'activity'])->name('authoring.activities.store');
+    Route::get('/authoring/activities/{activity}/edit', [ActivityAuthoringController::class, 'edit'])->name('authoring.activities.edit');
+    Route::put('/authoring/activities/{activity}', [ActivityAuthoringController::class, 'update'])->name('authoring.activities.update');
+    Route::delete('/authoring/activities/{activity}', [ActivityAuthoringController::class, 'destroy'])->name('authoring.activities.destroy');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
