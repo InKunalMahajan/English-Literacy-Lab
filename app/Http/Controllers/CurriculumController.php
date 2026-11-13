@@ -20,7 +20,7 @@ class CurriculumController extends Controller
     {
         abort_unless($lesson->is_published, 404);
 
-        $lesson->load('activities', 'unit.module');
+        $lesson->load('activities', 'unit.module', 'media');
         $learnerProgress = auth()->check()
             ? \App\Models\LearnerActivityProgress::query()
                 ->where('user_id', auth()->id())
