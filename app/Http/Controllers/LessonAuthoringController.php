@@ -87,7 +87,7 @@ class LessonAuthoringController extends Controller
     public function activity(Request $request, Lesson $lesson): RedirectResponse
     {
         $this->authorizeEditor($request);
-        $data = $request->validate(['prompt'=>'required|string|max:255','answer'=>'required|string|max:255','hint'=>'nullable|string|max:2000','activity_type'=>'sometimes|in:short_answer,vocabulary,grammar','visual_prompt'=>'nullable|string|max:2000']);
+        $data = $request->validate(['prompt'=>'required|string|max:255','answer'=>'required|string|max:255','hint'=>'nullable|string|max:2000','activity_type'=>'sometimes|in:short_answer,vocabulary,grammar,sentence_order,flashcard','visual_prompt'=>'nullable|string|max:2000']);
         $lesson->activities()->create($data);
         return redirect()->route('authoring.index')->with('status','Activity added.');
     }
