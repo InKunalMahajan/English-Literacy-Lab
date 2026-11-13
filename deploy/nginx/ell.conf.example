@@ -1,0 +1,28 @@
+# Example only: replace domain, paths and PHP-FPM socket; obtain TLS certificate first.
+server {
+    listen 80;
+    server_name example.org;
+    return 301 https://$host$request_uri;
+}
+server {
+    listen 443 ssl;
+    server_name example.org;
+    root /var/www/english-literacy-lab/current/public;
+    index index.php;
+    charset utf-8;
+    ssl_certificate /etc/letsencrypt/live/example.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.org/privkey.pem;
+    add_header X-Content-Type-Options nosniff always;
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+    }
+    location ~ /\. { deny all; }
+    location ~* \.(?:env|log|sqlite|sql|bak|old)$ { deny all; }
+    client_max_body_size 5m;
+}
