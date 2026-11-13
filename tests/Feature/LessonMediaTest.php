@@ -20,6 +20,13 @@ class LessonMediaTest extends TestCase
         return $user;
     }
 
+    private function png(string $name): UploadedFile
+    {
+        // Valid 1x1 PNG fixture; unlike fake()->image(), this does not need PHP GD.
+        $bytes = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9l8ZkAAAAASUVORK5CYII=', true);
+        return UploadedFile::fake()->createWithContent($name, $bytes);
+    }
+
     private function lesson(bool $published=false): Lesson
     {
         return Lesson::create(['slug'=>'visual-lesson','title'=>'Visual Lesson','level'=>'Foundation','topic'=>'Vocabulary','learning_outcome'=>'Recognise words','content'=>'Read the words','is_published'=>$published]);
@@ -32,7 +39,7 @@ class LessonMediaTest extends TestCase
         $editor=$this->user(true);
         $this->actingAs($editor)->post("/authoring/lessons/{$lesson->id}/media",[
             'kind'=>'image','title'=>'Greeting picture','alt_text'=>'A person waving hello',
-            'language'=>'en','image'=>UploadedFile::fake()->image('greeting.png'),
+            'language'=>'en','image'=>$this->png('greeting.png'),
         ])->assertRedirect();
         $media=$lesson->media()->firstOrFail();
         Storage::disk('local')->assertExists($media->path);
@@ -65,7 +72,7 @@ class LessonMediaTest extends TestCase
         $lesson=$this->lesson();
         $this->actingAs($this->user(true))->post("/authoring/lessons/{$lesson->id}/media",[
             'kind'=>'image','title'=>'Object','alt_text'=>'A cup','language'=>'en',
-            'image'=>UploadedFile::fake()->image('cup.png'),
+            'image'=>$this->png('cup.png'),
         ]);
         $media=$lesson->media()->firstOrFail();
         $path=$media->path;
