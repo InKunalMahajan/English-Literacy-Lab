@@ -15,6 +15,7 @@ class LearnerDashboardController extends Controller {
         $completedIds=$completed->pluck('lesson_id');
         $progress=LearnerActivityProgress::where('user_id',$user->id)->get();
         return view('dashboard',[
+            'writingDrafts'=>\App\Models\WritingPractice::with('lesson')->where('user_id',$user->id)->whereHas('lesson',fn($q)=>$q->where('is_published',true))->orderByDesc('updated_at')->limit(10)->get(),
             'completed'=>$completed,
             'completedCount'=>$completed->count(),
             'availableCount'=>Lesson::where('is_published',true)->count(),
