@@ -1,20 +1,5 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>English Curriculum — ELL</title>@vite(['resources/css/app.css', 'resources/js/app.js'])</head>
-<body><main class="mx-auto max-w-3xl px-6 py-12">
-<a href="{{ route('home') }}" class="underline">Home</a>
-<h1 class="mt-6 text-3xl font-bold">English literacy lessons</h1>
-<p class="mt-3">Accessible English learning with Indian Sign Language guidance.</p>
-<ul class="mt-8 space-y-5">
-@forelse ($lessons as $lesson)
-<li class="border-b pb-4">
-<p class="text-sm">{{ $lesson->level }} · {{ $lesson->topic }}</p>
-<h2 class="mt-1 text-xl font-semibold"><a class="underline" href="{{ route('curriculum.show', $lesson) }}">{{ $lesson->title }}</a></h2>
-<p class="mt-2">{{ $lesson->learning_outcome }}</p>
-</li>
-@empty
-<li>No published lessons yet.</li>
-@endforelse
-</ul>
-<div class="mt-8">{{ $lessons->links() }}</div>
-</main></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Curriculum — English Literacy Lab</title>@vite(['resources/css/app.css','resources/js/app.js'])</head><body>
+<a href="#main" class="sr-only focus:not-sr-only">Skip to content</a><header class="border-b px-6 py-5"><nav class="mx-auto flex max-w-5xl justify-between"><a class="font-bold" href="{{ route('home') }}">English Literacy Lab</a><a class="underline" href="{{ route('home') }}">Home</a></nav></header>
+<main id="main" class="mx-auto max-w-5xl px-6 py-14"><p class="text-sm uppercase tracking-widest">Learn at your own pace</p><h1 class="mt-3 text-4xl font-bold">English literacy curriculum</h1><p class="mt-4 max-w-2xl text-neutral-700">Browse modules, units and published lessons. Lessons include written English and ISL-first guidance where available.</p>
+<section class="mt-12"><h2 class="text-2xl font-semibold">Modules and units</h2><div class="mt-5 grid gap-5 md:grid-cols-2">@forelse($modules as $module)<article class="border p-6"><h3 class="text-xl font-bold">{{ $module->title }}</h3>@if($module->description)<p class="mt-2 text-neutral-700">{{ $module->description }}</p>@endif<ul class="mt-4 space-y-3">@foreach($module->units as $unit)@if($unit->lessons->isNotEmpty())<li><p class="font-semibold">{{ $unit->title }}</p><ul class="ml-4 mt-1 list-disc">@foreach($unit->lessons as $lesson)<li><a class="underline" href="{{ route('curriculum.show',$lesson) }}">{{ $lesson->title }}</a></li>@endforeach</ul></li>@endif @endforeach</ul></article>@empty<p>Modules are being prepared. Explore published lessons below.</p>@endforelse</div></section>
+<section class="mt-12"><h2 class="text-2xl font-semibold">All published lessons</h2><ul class="mt-5 divide-y border-t">@forelse($lessons as $lesson)<li class="py-5"><p class="text-sm text-neutral-600">{{ $lesson->level }} · {{ $lesson->topic }}</p><h3 class="mt-1 text-xl font-semibold"><a class="underline" href="{{ route('curriculum.show',$lesson) }}">{{ $lesson->title }}</a></h3><p class="mt-2">{{ $lesson->learning_outcome }}</p></li>@empty<li class="py-5">No published lessons yet.</li>@endforelse</ul><div class="mt-6">{{ $lessons->links() }}</div></section></main></body></html>
