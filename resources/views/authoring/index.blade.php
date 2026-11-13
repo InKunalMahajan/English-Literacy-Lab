@@ -30,11 +30,11 @@
 <p class="mt-3"><a class="underline" href="{{ route('authoring.lessons.edit',$lesson) }}">Edit or delete lesson</a></p>
 <form class="mt-3" method="POST" action="{{ route('authoring.lessons.publish',$lesson) }}">@csrf<button class="border px-3 py-2">{{ $lesson->is_published ? 'Unpublish' : 'Publish' }}</button></form>
 <form class="mt-4 grid gap-3 md:grid-cols-2" method="POST" action="{{ route('authoring.activities.store',$lesson) }}">@csrf
-<label>Activity type<select name="activity_type" required class="mt-1 w-full border p-2"><option value="short_answer">Short answer</option><option value="vocabulary">Vocabulary</option><option value="grammar">Grammar</option></select></label>
+<label>Activity type<select name="activity_type" required class="mt-1 w-full border p-2"><option value="short_answer">Short answer</option><option value="vocabulary">Vocabulary</option><option value="grammar">Grammar</option><option value="sentence_order">Sentence ordering</option><option value="flashcard">Vocabulary flashcard</option></select></label>
 <label>Activity question<input required name="prompt" maxlength="255" class="mt-1 w-full border p-2"></label>
-<label>Expected answer<input required name="answer" maxlength="255" class="mt-1 w-full border p-2"></label>
+<label>Expected answer (for sentence ordering, write the correct sentence)<input required name="answer" maxlength="255" class="mt-1 w-full border p-2"></label>
 <label class="md:col-span-2">Visual description (optional)<textarea name="visual_prompt" class="mt-1 w-full border p-2" placeholder="Describe a scene, object or visual example"></textarea></label>
 <label class="md:col-span-2">Optional visual/ISL hint<input name="hint" class="mt-1 w-full border p-2"></label>
-<button class="border px-3 py-2 md:col-span-2">Add short-answer activity</button></form></article>
+<button class="border px-3 py-2 md:col-span-2">Add learning activity</button></form></article>
 @empty<p>No lessons yet.</p>@endforelse</div><div class="mt-6">{{ $lessons->links() }}</div></section>
 </main></body></html>
