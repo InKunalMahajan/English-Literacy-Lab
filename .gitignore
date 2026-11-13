@@ -7,13 +7,13 @@
 /public/hot
 /storage/*.key
 /storage/logs/*
-!/storage/logs/.gitignore
+!/storage/logs/.gitkeep
 /storage/framework/cache/*
 /storage/framework/sessions/*
 /storage/framework/views/*
-!/storage/framework/cache/.gitignore
-!/storage/framework/sessions/.gitignore
-!/storage/framework/views/.gitignore
+!/storage/framework/cache/.gitkeep
+!/storage/framework/sessions/.gitkeep
+!/storage/framework/views/.gitkeep
 /bootstrap/cache/*.php
 /database/*.sqlite
 /.phpunit.cache/
