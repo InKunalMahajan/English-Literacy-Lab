@@ -27,3 +27,6 @@ Laravel 13 (subject to environment verification), PHP 8.4, Blade, Tailwind CSS v
 5. Finalise physical schema before real educational or research migrations.
 
 See [Development Roadmap](docs/ROADMAP.md).
+
+## Database setup decision (13 Nov 2026)
+Existing XAMPP database was verified as **MariaDB 10.4.32**, accepting authenticated connections on port 3306. The selected approach is to install a **separate MySQL 9.x Community Server** for ELL on port 3307, with a separate data directory and Windows service (planned name `MySQL9ELL`). **Installation has not started; version and ZIP package still need confirmation.** XAMPP must remain unchanged.
