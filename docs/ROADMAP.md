@@ -1,35 +1,27 @@
-# ELL Development Roadmap
+# English Literacy Lab — Independent Platform Roadmap
 
-All stages are planning artefacts unless marked implemented.
+## Product boundary
+ELL is a standalone English literacy, ISL-first learning and educational research website. It is independent from TEACH CMS and SignGyaan. No institution administration, campus management, multi-tenancy or cross-project integration.
 
+## Delivery
 | Stage | Scope | Status |
 |---|---|---|
-| 1 | Requirements and 24 modules | Draft |
-| 2 | Logical database architecture | Draft; physical schema pending |
-| 3 | ISL-first UI/UX and navigation | Conceptual draft |
-| 4 | Laravel modular technical architecture | Design draft |
-| 5 | Repository, migration and sprint planning | Draft |
-| 6 | Sprint 01 environment, Laravel foundation, CI | In progress |
+| 1–5 | Initial planning documents | Historical drafts; superseded where organisation-scoped |
+| 6 | Laravel foundation, authentication, tests | Implemented locally; user confirmed tests passing |
+| 7 | Individual account authentication | Initial implementation |
+| 7.2 | Organisation access | Retired; legacy tables removed by forward migration |
+| 8 | Curriculum and lesson catalogue | Initial implementation |
+| 9 | ISL media and accessible lesson activities | Planned |
+| 10 | Reading, writing and vocabulary practice | Planned |
+| 11 | Assessments and personal progress | Planned |
+| 12 | Research ethics, consent and anonymised analytics | Planned |
+| 13 | Accessibility review, hardening and deployment | Planned |
 
-## Planned delivery sprints
-00 Architecture readiness; 01 repository/CI; 02 identity/organisations; 03 RBAC/academic structure; 04 curriculum; 05 stories/language content; 06 ISL media; 07 assignments/reading; 08 writing/portfolio; 09 assessment; 10 instruction/progress; 11 research governance; 12 research data/reports; 13 hardening/pilot.
+## Architecture
+Laravel 13, Blade, Tailwind CSS v4, Vite, SQLite for local development. Individual user accounts, publicly browsable published lessons, curriculum levels and learning outcomes. Do not put learner-sensitive or research data in public lesson content.
 
-## Milestone gates
-- Foundation: clean installation, build, tests and secret scanning.
-- Institution: organisation isolation and scoped permissions.
-- Learning: accessible ISL-first story and writing workflows.
-- Assessment: immutable originals, versioned rubrics and audit.
-- Research: approved protocols, lawful eligibility, restricted identity linkage and controlled exports.
-- Release: accessibility, penetration testing, recovery and authorised sign-off.
+## Database change safety
+The original organisation-creation migration remains in Git history for compatibility with existing local databases. A new forward migration drops its tables. This permanently deletes any organisation/member records in those tables: back up data before running migrations if any real data was entered.
 
-## Immediate blocker
-Confirm the XAMPP database engine/version and authenticated access before finalising MySQL configuration.
-
-## Latest decision (13 Nov 2026)
-**Stage 6 / Milestone 01:** PHP, Composer, Node/npm and Git checks passed. XAMPP MariaDB 10.4.32 authenticated successfully. Chosen direction: install independent MySQL 9.x on port 3307 while preserving MariaDB on 3306. **Pending:** select MySQL Windows ZIP and complete separate installation; Laravel foundation not yet started.
-
-## Foundation repository implementation update
-Committed application entrypoints, Laravel bootstrap and routes, Composer/NPM manifests, Tailwind/Vite, accessible landing page, test skeleton and CI workflow. These are **code committed**, not **tests passed** or **application running**. MySQL 9.x server setup remains pending.
-
-## Stage 7 source update (13 Nov 2026)
-Initial identity schema, organisation membership models, native Laravel login/logout, guest/auth route guards, login rate limiting, minimal dashboard and authentication tests committed. No administrator provisioning, full RBAC, campus hierarchy or tenant policy enforcement yet. Not verified by a green CI run. See `docs/stages/07-identity-access.md`.
+## Verification
+Run `php artisan migrate`, `php artisan test`, `npm run build`. Do not claim CI green until confirmed.
