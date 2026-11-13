@@ -29,6 +29,9 @@
 @forelse($lessons as $lesson)<article class="border p-5"><h3 class="font-semibold">{{ $lesson->title }} <span class="text-sm font-normal">({{ $lesson->is_published ? 'Published' : 'Draft' }})</span></h3>
 <p class="mt-3"><a class="underline" href="{{ route('authoring.lessons.edit',$lesson) }}">Edit or delete lesson</a></p>
 <form class="mt-3" method="POST" action="{{ route('authoring.lessons.publish',$lesson) }}">@csrf<button class="border px-3 py-2">{{ $lesson->is_published ? 'Unpublish' : 'Publish' }}</button></form>
+@if($lesson->activities->isNotEmpty())
+<div class="mt-4 border-t pt-4"><h4 class="font-semibold">Existing activities</h4><ul class="mt-2 space-y-2">@foreach($lesson->activities as $activity)<li class="flex flex-wrap items-center justify-between gap-3 border p-3"><span>{{ $activity->prompt }} ({{ str_replace('_',' ',$activity->activity_type) }})</span><a class="underline" href="{{ route('authoring.activities.edit',$activity) }}">Edit or delete</a></li>@endforeach</ul></div>
+@endif
 <form class="mt-4 grid gap-3 md:grid-cols-2" method="POST" action="{{ route('authoring.activities.store',$lesson) }}">@csrf
 <label>Activity type<select name="activity_type" required class="mt-1 w-full border p-2"><option value="short_answer">Short answer</option><option value="vocabulary">Vocabulary</option><option value="grammar">Grammar</option><option value="sentence_order">Sentence ordering</option><option value="flashcard">Vocabulary flashcard</option></select></label>
 <label>Activity question<input required name="prompt" maxlength="255" class="mt-1 w-full border p-2"></label>
