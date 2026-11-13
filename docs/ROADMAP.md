@@ -24,3 +24,6 @@ All stages are planning artefacts unless marked implemented.
 
 ## Immediate blocker
 Confirm the XAMPP database engine/version and authenticated access before finalising MySQL configuration.
+
+## Latest decision (13 Nov 2026)
+**Stage 6 / Milestone 01:** PHP, Composer, Node/npm and Git checks passed. XAMPP MariaDB 10.4.32 authenticated successfully. Chosen direction: install independent MySQL 9.x on port 3307 while preserving MariaDB on 3306. **Pending:** select MySQL Windows ZIP and complete separate installation; Laravel foundation not yet started.
