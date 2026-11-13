@@ -7,7 +7,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <main class="mx-auto max-w-md px-6 py-16">
+@include('partials.site-header')
+<main id="main" class="mx-auto max-w-md px-6 py-16">
         <a class="underline" href="{{ route('home') }}">English Literacy Lab</a>
         <h1 class="mt-8 text-3xl font-bold">Sign in</h1>
         <p class="mt-3 text-neutral-700">Accounts are created by an authorised administrator.</p>
@@ -26,5 +27,7 @@
             <button type="submit" class="rounded bg-black px-6 py-3 font-semibold text-white">Sign in</button>
         </form>
     </main>
+
+@include('partials.site-footer')
 </body>
 </html>
