@@ -17,4 +17,15 @@
 @if($activity->hint)<p class="mt-2 text-sm text-neutral-700">Hint: {{ $activity->hint }}</p>@endif
 @if(session('activity_feedback') && isset(session('activity_feedback')[$activity->id]))<p role="status" class="mt-3 font-semibold">{{ session('activity_feedback')[$activity->id] }}</p>@endif
 <form method="POST" action="{{ route('activities.check',$activity) }}" class="mt-4 flex flex-wrap gap-3">@csrf<label class="flex-1">Your answer<input required maxlength="255" name="answer" class="mt-1 block w-full border p-3"></label><button class="self-end border border-black px-5 py-3">Check answer</button></form></article>@endforeach</section>@endif
+
+<section class="mt-12 border-t pt-8" aria-labelledby="completion-heading"><h2 id="completion-heading" class="text-2xl font-semibold">Lesson completion</h2>
+@auth
+@if($isCompleted)<p class="mt-3 font-semibold" role="status">Completed — well done!</p>
+@elseif($canComplete)
+<form method="POST" action="{{ route('curriculum.complete',$lesson) }}" class="mt-4">@csrf<button class="border border-black bg-black px-5 py-3 text-white">Mark lesson complete</button></form>
+@else<p class="mt-3">Answer every activity correctly to unlock lesson completion.</p>@endif
+@else<p class="mt-3"><a class="underline" href="{{ route('login') }}">Sign in</a> to save lesson completion.</p>@endauth
+@if($errors->has('completion'))<p role="alert" class="mt-3">{{ $errors->first('completion') }}</p>@endif
+@if(session('status'))<p role="status" class="mt-3">{{ session('status') }}</p>@endif
+</section>
 </main></body></html>
