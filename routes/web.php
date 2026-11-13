@@ -7,11 +7,13 @@ use App\Http\Controllers\LessonActivityController;
 use App\Http\Controllers\LessonCompletionController;
 use App\Http\Controllers\LearnerDashboardController;
 use App\Http\Controllers\ActivityAuthoringController;
+use App\Http\Controllers\LessonMediaController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 Route::get('/curriculum', [CurriculumController::class, 'index'])->name('curriculum.index');
 Route::post('/activities/{activity}/check', [LessonActivityController::class, 'check'])->middleware('throttle:20,1')->name('activities.check');
+Route::get('/media/{media}', [LessonMediaController::class, 'show'])->name('media.show');
 Route::get('/curriculum/{lesson}', [CurriculumController::class, 'show'])->name('curriculum.show');
 
 Route::middleware('guest')->group(function (): void {
@@ -34,5 +36,7 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/authoring/activities/{activity}/edit', [ActivityAuthoringController::class, 'edit'])->name('authoring.activities.edit');
     Route::put('/authoring/activities/{activity}', [ActivityAuthoringController::class, 'update'])->name('authoring.activities.update');
     Route::delete('/authoring/activities/{activity}', [ActivityAuthoringController::class, 'destroy'])->name('authoring.activities.destroy');
+    Route::post('/authoring/lessons/{lesson}/media', [LessonMediaController::class, 'store'])->name('authoring.media.store');
+    Route::delete('/authoring/media/{media}', [LessonMediaController::class, 'destroy'])->name('authoring.media.destroy');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
