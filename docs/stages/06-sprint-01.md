@@ -31,3 +31,12 @@ Never commit `.env`, credentials, student records or research data. Verify exist
 
 ## Sprint 01 acceptance
 Clean installation; reproducible frontend build; passing automated tests; safe configuration; CI pipeline; documented module boundaries; no unresolved critical security findings.
+
+## Database verification and decision — 13 Nov 2026
+- Verified client: `C:\\xampp\\mysql\\bin\\mysql.exe`, MariaDB 10.4.32 (Win64).
+- Verified authenticated server query: `10.4.32-MariaDB`, `mariadb.org binary distribution`.
+- XAMPP MariaDB is reachable on `127.0.0.1:3306`.
+- Decision: retain XAMPP unchanged; deploy MySQL 9.x separately for ELL on port `3307`, with its own binaries, data directory and planned service `MySQL9ELL`.
+- Current step: select and verify an official Windows x64 MySQL Community Server ZIP archive. **No download, extraction, installation, service registration, schema creation or Laravel installation has been confirmed.**
+- Next: user provides exact archive version/filename; verify compatibility, then extract and configure in small, reviewable steps.
+- Do not commit credentials or `.env`.
