@@ -1,5 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lesson authoring — ELL</title>@vite(['resources/css/app.css','resources/js/app.js'])</head>
-<body><main class="mx-auto max-w-5xl px-5 py-10">
+<body>
+@include('partials.site-header')
+<main id="main" class="mx-auto max-w-5xl px-5 py-10">
 <a class="underline" href="{{ route('dashboard') }}">Dashboard</a><h1 class="mt-6 text-3xl font-bold">Curriculum authoring</h1>
 <p class="mt-2 text-neutral-600">Editor-only workspace. New lessons are saved as drafts.</p>
 @if(session('status'))<p role="status" class="my-4 border p-3">{{ session('status') }}</p>@endif
@@ -40,4 +42,6 @@
 <label class="md:col-span-2">Optional visual/ISL hint<input name="hint" class="mt-1 w-full border p-2"></label>
 <button class="border px-3 py-2 md:col-span-2">Add learning activity</button></form></article>
 @empty<p>No lessons yet.</p>@endforelse</div><div class="mt-6">{{ $lessons->links() }}</div></section>
-</main></body></html>
+</main>
+@include('partials.site-footer')
+</body></html>
