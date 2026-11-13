@@ -12,6 +12,9 @@
 <section class="mt-10"><h2 class="text-2xl font-semibold">Completed lessons</h2>
 @if($completed->isEmpty())<p class="mt-3">Your completed lessons will appear here.</p>
 @else<ul class="mt-4 space-y-3">@foreach($completed as $item)<li class="border p-4"><a class="underline" href="{{ route('curriculum.show',$item->lesson) }}">{{ $item->lesson->title }}</a><span class="ml-2 text-sm">Completed {{ $item->completed_at->format('d M Y') }}</span></li>@endforeach</ul>@endif</section>
+<section class="mt-10"><h2 class="text-2xl font-semibold">Your assessment results</h2>
+@if($assessmentAttempts->isEmpty())<p class="mt-3">No assessments submitted yet.</p>
+@else<ul class="mt-4 space-y-3">@foreach($assessmentAttempts as $attempt)<li class="border p-4"><a class="underline" href="{{ route('assessments.show',$attempt->lesson) }}">{{ $attempt->lesson->title }}</a><p class="mt-1 text-sm">{{ $attempt->score_percent }}% · {{ str_replace('_',' ',$attempt->mastery_status) }} · {{ $attempt->submitted_at->format('d M Y') }}</p></li>@endforeach</ul>@endif</section>
 <section class="mt-10"><h2 class="text-2xl font-semibold">Your writing practice</h2>
 @if($writingDrafts->isEmpty())<p class="mt-3">No writing drafts saved yet.</p>
 @else<ul class="mt-4 space-y-3">@foreach($writingDrafts as $draft)<li class="border p-4"><a class="underline" href="{{ route('curriculum.show',$draft->lesson) }}">{{ $draft->lesson->title }}</a><p class="mt-1 text-sm">Last edited {{ $draft->updated_at->format('d M Y') }} · Approximately {{ $draft->word_count }} words</p></li>@endforeach</ul>@endif</section>
