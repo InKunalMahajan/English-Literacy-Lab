@@ -34,6 +34,9 @@ class CurriculumController extends Controller
             isset($learnerProgress[$activity->id]) && $learnerProgress[$activity->id]->is_correct
         );
 
-        return view('curriculum.show', compact('lesson', 'learnerProgress', 'isCompleted', 'canComplete'));
+        $writingPractice = auth()->check()
+            ? \App\Models\WritingPractice::where('user_id',auth()->id())->where('lesson_id',$lesson->id)->first()
+            : null;
+        return view('curriculum.show', compact('lesson', 'learnerProgress', 'isCompleted', 'canComplete', 'writingPractice'));
     }
 }
