@@ -24,7 +24,7 @@ class LessonAuthoringController extends Controller
         $this->authorizeEditor($request);
         return view('authoring.index', [
             'modules' => CurriculumModule::with('units')->orderBy('sort_order')->get(),
-            'lessons' => Lesson::orderByDesc('updated_at')->paginate(20),
+            'lessons' => Lesson::with('activities')->orderByDesc('updated_at')->paginate(20),
             'units' => CurriculumUnit::with('module')->orderBy('title')->get(),
         ]);
     }
