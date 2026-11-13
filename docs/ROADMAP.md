@@ -15,7 +15,7 @@ ELL is a standalone English literacy, ISL-first learning and educational researc
 | 10 | Reading comprehension questions, existing vocabulary exercises, private writing practice with revisions and learner dashboard drafts | Implemented in code; local verification pending |
 | 11 | Untimed written lesson assessments, percentage scores, provisional mastery bands and private attempt history | Implemented in code; local verification pending |
 | 12 | Versioned optional consent and withdrawal; restricted, small-group-suppressed descriptive assessment analytics | Pilot code implemented; local verification and ethics review pending |
-| 13 | Accessibility review, hardening and deployment | Planned |
+| 13 | Baseline keyboard/reduced-motion CSS, security headers, automated checks and deployment checklist | Implemented in code; manual accessibility and deployment verification pending |
 
 ## Architecture
 Laravel 13, Blade, Tailwind CSS v4, Vite, SQLite for local development. Individual user accounts, publicly browsable published lessons, curriculum levels and learning outcomes. Do not put learner-sensitive or research data in public lesson content.
