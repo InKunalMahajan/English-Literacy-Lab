@@ -30,3 +30,6 @@ Confirm the XAMPP database engine/version and authenticated access before finali
 
 ## Foundation repository implementation update
 Committed application entrypoints, Laravel bootstrap and routes, Composer/NPM manifests, Tailwind/Vite, accessible landing page, test skeleton and CI workflow. These are **code committed**, not **tests passed** or **application running**. MySQL 9.x server setup remains pending.
+
+## Stage 7 source update (13 Nov 2026)
+Initial identity schema, organisation membership models, native Laravel login/logout, guest/auth route guards, login rate limiting, minimal dashboard and authentication tests committed. No administrator provisioning, full RBAC, campus hierarchy or tenant policy enforcement yet. Not verified by a green CI run. See `docs/stages/07-identity-access.md`.
