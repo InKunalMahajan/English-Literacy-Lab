@@ -17,5 +17,5 @@
 ## Deployment guardrails
 - Never expose a public registration route or create default credentials.
 - Do not store student or research records until tenant-scoped access control is implemented and tested.
-- Before enabling real users, add login rate limiting, administrator provisioning, deactivation session revocation and security review.
+- Before enabling real users, verify the configured login rate limiting, add administrator provisioning, deactivation session revocation and security review.
 - Run `php artisan migrate:status`, `php artisan migrate`, `php artisan test` against an isolated development database.
