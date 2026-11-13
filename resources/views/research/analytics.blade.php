@@ -1,9 +1,12 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Research pilot summary — English Literacy Lab</title>@vite(['resources/css/app.css','resources/js/app.js'])</head><body>
-<a class="sr-only focus:not-sr-only" href="#main">Skip to content</a><header class="border-b p-5"><nav class="mx-auto flex max-w-3xl justify-between"><a href="{{ route('home') }}" class="font-bold">English Literacy Lab</a><a href="{{ route('dashboard') }}" class="underline">Dashboard</a></nav></header>
+@include('partials.site-header')
+
 <main id="main" class="mx-auto max-w-3xl px-6 py-12"><h1 class="text-3xl font-bold">Research pilot — group summary</h1>
 <p class="mt-4">This restricted pilot dashboard includes only assessment attempts made after current research opt-in. Learners who withdrew are excluded.</p>
 @if($summary)<dl class="mt-7 grid gap-4 sm:grid-cols-3"><div class="border p-5"><dt>Participating learners</dt><dd class="mt-2 text-2xl font-bold">{{ $summary['participants'] }}</dd></div>
 <div class="border p-5"><dt>Assessment attempts</dt><dd class="mt-2 text-2xl font-bold">{{ $summary['attempts'] }}</dd></div>
 <div class="border p-5"><dt>Mean assessment score</dt><dd class="mt-2 text-2xl font-bold">{{ number_format($summary['average_score'],1) }}%</dd></div></dl>
 @else<p class="mt-7 border p-5">Group statistics are hidden until at least five currently consenting learners have submitted eligible assessments.</p>@endif
-<p class="mt-7 text-sm">These descriptive metrics are not anonymous research datasets or validated proficiency outcomes. There is no participant export or individual drill-down.</p></main></body></html>
+<p class="mt-7 text-sm">These descriptive metrics are not anonymous research datasets or validated proficiency outcomes. There is no participant export or individual drill-down.</p></main>
+@include('partials.site-footer')
+</body></html>
