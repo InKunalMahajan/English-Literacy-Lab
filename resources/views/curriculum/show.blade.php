@@ -1,16 +1,14 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ $lesson->title }} — ELL</title>@vite(['resources/css/app.css', 'resources/js/app.js'])</head>
-<body><main class="mx-auto max-w-3xl px-6 py-12">
-<a href="{{ route('curriculum.index') }}" class="underline">All lessons</a>
-<p class="mt-8 text-sm">{{ $lesson->level }} · {{ $lesson->topic }}</p>
-<h1 class="mt-2 text-3xl font-bold">{{ $lesson->title }}</h1>
-<h2 class="mt-8 text-xl font-semibold">Learning outcome</h2>
-<p class="mt-2">{{ $lesson->learning_outcome }}</p>
-<h2 class="mt-8 text-xl font-semibold">Lesson</h2>
-<div class="mt-2 whitespace-pre-line">{{ $lesson->content }}</div>
-@if ($lesson->isl_guidance)
-<h2 class="mt-8 text-xl font-semibold">Indian Sign Language guidance</h2>
-<p class="mt-2 whitespace-pre-line">{{ $lesson->isl_guidance }}</p>
-@endif
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ $lesson->title }} — English Literacy Lab</title>@vite(['resources/css/app.css','resources/js/app.js'])</head><body>
+<a href="#main" class="sr-only focus:not-sr-only">Skip to content</a><header class="border-b px-6 py-5"><nav class="mx-auto flex max-w-4xl justify-between"><a class="font-bold" href="{{ route('home') }}">English Literacy Lab</a><a class="underline" href="{{ route('curriculum.index') }}">All lessons</a></nav></header>
+<main id="main" class="mx-auto max-w-4xl px-6 py-12"><p class="text-sm text-neutral-600">{{ $lesson->level }} · {{ $lesson->topic }}</p><h1 class="mt-3 text-4xl font-bold">{{ $lesson->title }}</h1>
+@if($lesson->unit)<p class="mt-3 text-neutral-600">{{ $lesson->unit->module->title }} / {{ $lesson->unit->title }}</p>@endif
+<section class="mt-10 border-l-4 border-black pl-5"><h2 class="text-xl font-semibold">Learning outcome</h2><p class="mt-2">{{ $lesson->learning_outcome }}</p></section>
+<section class="mt-10"><h2 class="text-2xl font-semibold">Learn</h2><div class="mt-4 whitespace-pre-line leading-loose">{{ $lesson->content }}</div></section>
+@if($lesson->isl_video_url)<section class="mt-10"><h2 class="text-2xl font-semibold">ISL video resource</h2><p class="mt-3"><a class="underline" href="{{ $lesson->isl_video_url }}" target="_blank" rel="noopener noreferrer">Open ISL video in a new tab</a></p><p class="mt-2 text-sm text-neutral-600">External video resource. Captions and accessibility depend on the provider.</p></section>@endif
+@if($lesson->isl_guidance)<section class="mt-10 border p-5"><h2 class="text-2xl font-semibold">ISL-first guidance</h2><p class="mt-3 whitespace-pre-line">{{ $lesson->isl_guidance }}</p></section>@endif
+@if($lesson->activities->isNotEmpty())<section class="mt-12"><h2 class="text-2xl font-semibold">Practise your English</h2><p class="mt-2 text-neutral-700">Type your answer and check your understanding.</p>
+@foreach($lesson->activities as $activity)<article class="mt-5 border p-5"><h3 class="font-semibold">{{ $loop->iteration }}. {{ $activity->prompt }}</h3>
+@if($activity->hint)<p class="mt-2 text-sm text-neutral-700">Hint: {{ $activity->hint }}</p>@endif
+@if(session('activity_feedback') && isset(session('activity_feedback')[$activity->id]))<p role="status" class="mt-3 font-semibold">{{ session('activity_feedback')[$activity->id] }}</p>@endif
+<form method="POST" action="{{ route('activities.check',$activity) }}" class="mt-4 flex flex-wrap gap-3">@csrf<label class="flex-1">Your answer<input required maxlength="255" name="answer" class="mt-1 block w-full border p-3"></label><button class="self-end border border-black px-5 py-3">Check answer</button></form></article>@endforeach</section>@endif
 </main></body></html>
