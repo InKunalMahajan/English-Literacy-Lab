@@ -55,6 +55,9 @@
 </form>
 @else<p class="mt-3"><a class="underline" href="{{ route('login') }}">Sign in</a> to save your writing practice.</p>@endauth
 </section>
+@auth
+<section class="mt-12 border-t pt-8"><h2 class="text-2xl font-semibold">Check your understanding</h2><p class="mt-3">Take an untimed written assessment and view your personal results.</p><p class="mt-4"><a class="inline-block border border-black px-5 py-3 underline" href="{{ route('assessments.show',$lesson) }}">Open lesson assessment</a></p></section>
+@endauth
 <section class="mt-12 border-t pt-8" aria-labelledby="completion-heading"><h2 id="completion-heading" class="text-2xl font-semibold">Lesson completion</h2>
 @auth
 @if($isCompleted)<p class="mt-3 font-semibold" role="status">Completed — well done!</p>
