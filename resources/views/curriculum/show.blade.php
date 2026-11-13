@@ -14,6 +14,11 @@
 <p class="mt-2 text-sm">Your progress: {{ $learnerProgress[$activity->id]->attempts }} attempt(s) · {{ $learnerProgress[$activity->id]->is_correct ? 'Completed' : 'Practising' }}</p>
 @endif
 @endauth
+@if($activity->activity_type === 'flashcard')
+<details class="mt-4 border p-4"><summary class="cursor-pointer font-semibold">Reveal vocabulary card</summary><p class="mt-3 whitespace-pre-line">{{ $activity->answer }}</p><p class="mt-2 text-sm">Read the word, then practise writing it below.</p></details>
+@elseif($activity->activity_type === 'sentence_order')
+<p class="mt-3 text-sm">Put the words in the correct order. Type the complete sentence in the answer field. Use the punctuation shown in the question.</p>
+@endif
 @if($activity->hint)<p class="mt-2 text-sm text-neutral-700">Hint: {{ $activity->hint }}</p>@endif
 @if(session('activity_feedback') && isset(session('activity_feedback')[$activity->id]))<p role="status" class="mt-3 font-semibold">{{ session('activity_feedback')[$activity->id] }}</p>@endif
 <form method="POST" action="{{ route('activities.check',$activity) }}" class="mt-4 flex flex-wrap gap-3">@csrf<label class="flex-1">Your answer<input required maxlength="255" name="answer" class="mt-1 block w-full border p-3"></label><button class="self-end border border-black px-5 py-3">Check answer</button></form></article>@endforeach</section>@endif
