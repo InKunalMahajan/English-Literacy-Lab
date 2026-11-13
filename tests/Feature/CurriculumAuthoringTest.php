@@ -15,13 +15,14 @@ class CurriculumAuthoringTest extends TestCase
 
     private function user(bool $editor): User
     {
-        return User::create([
+        $user = User::create([
             'name'=>'Test Educator',
             'email'=>($editor ? 'editor' : 'learner').'@example.test',
             'password'=>'password',
             'is_active'=>true,
-            'is_content_editor'=>$editor,
         ]);
+        $user->forceFill(['is_content_editor' => $editor])->save();
+        return $user;
     }
 
     public function test_only_editors_can_author_curriculum(): void
