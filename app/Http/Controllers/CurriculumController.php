@@ -28,6 +28,12 @@ class CurriculumController extends Controller
                 ->get()->keyBy('lesson_activity_id')
             : collect();
 
-        return view('curriculum.show', compact('lesson', 'learnerProgress'));
+        $isCompleted = auth()->check() && \App\Models\LessonCompletion::query()
+            ->where('user_id', auth()->id())->where('lesson_id', $lesson->id)->exists();
+        $canComplete = $lesson->activities->every(fn ($activity) =>
+            isset($learnerProgress[$activity->id]) && $learnerProgress[$activity->id]->is_correct
+        );
+
+        return view('curriculum.show', compact('lesson', 'learnerProgress', 'isCompleted', 'canComplete'));
     }
 }
