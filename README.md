@@ -35,6 +35,16 @@ php artisan serve
 
 For an existing local clone, use `git pull origin main` first. **Never overwrite an existing `.env` or regenerate a working application key without a recovery plan.**
 
+## Free local readiness check (Phase 15.1)
+Run from the project root in Windows PowerShell after installing dependencies:
+
+```powershell
+git pull origin main
+powershell -ExecutionPolicy Bypass -File .\\scripts\\check-local.ps1
+```
+
+This checks tests, frontend build and routes without modifying the database. See [Phase 15.1 local guide](docs/stages/15-1-free-local-readiness.md) for SQLite backup and manual audit steps. No paid hosting is required.
+
 ## Release quality checks
 ```powershell
 php artisan optimize:clear
