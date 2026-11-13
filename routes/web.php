@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\LessonAuthoringController;
 use App\Http\Controllers\LessonActivityController;
+use App\Http\Controllers\LessonCompletionController;
+use App\Http\Controllers\LearnerDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -17,7 +19,8 @@ Route::middleware('guest')->group(function (): void {
 });
 
 Route::middleware('auth')->group(function (): void {
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/dashboard', [LearnerDashboardController::class, 'index'])->name('dashboard');
+    Route::post('/curriculum/{lesson}/complete', [LessonCompletionController::class, 'store'])->middleware('throttle:20,1')->name('curriculum.complete');
     Route::get('/authoring', [LessonAuthoringController::class, 'index'])->name('authoring.index');
     Route::post('/authoring/modules', [LessonAuthoringController::class, 'module'])->name('authoring.modules.store');
     Route::post('/authoring/units', [LessonAuthoringController::class, 'unit'])->name('authoring.units.store');
