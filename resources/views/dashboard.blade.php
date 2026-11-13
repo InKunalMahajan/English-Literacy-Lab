@@ -12,5 +12,8 @@
 <section class="mt-10"><h2 class="text-2xl font-semibold">Completed lessons</h2>
 @if($completed->isEmpty())<p class="mt-3">Your completed lessons will appear here.</p>
 @else<ul class="mt-4 space-y-3">@foreach($completed as $item)<li class="border p-4"><a class="underline" href="{{ route('curriculum.show',$item->lesson) }}">{{ $item->lesson->title }}</a><span class="ml-2 text-sm">Completed {{ $item->completed_at->format('d M Y') }}</span></li>@endforeach</ul>@endif</section>
+<section class="mt-10"><h2 class="text-2xl font-semibold">Your writing practice</h2>
+@if($writingDrafts->isEmpty())<p class="mt-3">No writing drafts saved yet.</p>
+@else<ul class="mt-4 space-y-3">@foreach($writingDrafts as $draft)<li class="border p-4"><a class="underline" href="{{ route('curriculum.show',$draft->lesson) }}">{{ $draft->lesson->title }}</a><p class="mt-1 text-sm">Last edited {{ $draft->updated_at->format('d M Y') }} · Approximately {{ $draft->word_count }} words</p></li>@endforeach</ul>@endif</section>
 @if(auth()->user()->is_content_editor)<p class="mt-8"><a class="underline" href="{{ route('authoring.index') }}">Open lesson authoring</a></p>@endif
 <form method="POST" action="{{ route('logout') }}" class="mt-10">@csrf<button class="border border-black px-5 py-3">Sign out</button></form></main></body></html>
