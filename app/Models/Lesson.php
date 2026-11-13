@@ -3,10 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Lesson extends Model
 {
-    protected $fillable = ['slug', 'title', 'level', 'topic', 'learning_outcome', 'content', 'isl_guidance', 'is_published'];
+    protected $fillable = ['slug', 'title', 'level', 'topic', 'learning_outcome', 'content', 'isl_guidance', 'is_published', 'curriculum_unit_id', 'isl_video_url'];
+
+    public function unit(): BelongsTo { return $this->belongsTo(CurriculumUnit::class, 'curriculum_unit_id'); }
+    public function activities(): HasMany { return $this->hasMany(LessonActivity::class)->orderBy('sort_order'); }
 
     protected function casts(): array
     {
