@@ -95,7 +95,7 @@ class LessonAuthoringController extends Controller
     {
         $this->authorizeEditor($request);
         return view('authoring.edit', [
-            'lesson' => $lesson,
+            'lesson' => $lesson->load('media'),
             'units' => CurriculumUnit::with('module')->orderBy('title')->get(),
         ]);
     }
