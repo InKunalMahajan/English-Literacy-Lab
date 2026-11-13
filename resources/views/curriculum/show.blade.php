@@ -4,6 +4,21 @@
 @if($lesson->unit)<p class="mt-3 text-neutral-600">{{ $lesson->unit->module->title }} / {{ $lesson->unit->title }}</p>@endif
 <section class="mt-10 border-l-4 border-black pl-5"><h2 class="text-xl font-semibold">Learning outcome</h2><p class="mt-2">{{ $lesson->learning_outcome }}</p></section>
 <section class="mt-10"><h2 class="text-2xl font-semibold">Learn</h2><div class="mt-4 whitespace-pre-line leading-loose">{{ $lesson->content }}</div></section>
+
+@if($lesson->media->isNotEmpty())
+<section class="mt-10" aria-labelledby="visual-resources-heading"><h2 id="visual-resources-heading" class="text-2xl font-semibold">Visual and ISL learning resources</h2>
+<div class="mt-5 space-y-6">@foreach($lesson->media as $media)
+<figure class="border p-5">
+@if($media->kind==='image')
+<img src="{{ route('media.show',$media) }}" alt="{{ $media->alt_text }}" loading="lazy" class="max-h-96 w-full object-contain">
+@else
+<p><a href="{{ $media->external_url }}" target="_blank" rel="noopener noreferrer" class="underline">Open {{ $media->title }} (external video, new tab)</a></p>
+@if($media->transcript)<details class="mt-4 border p-4"><summary class="cursor-pointer font-semibold">Read the video transcript / text equivalent</summary><p class="mt-3 whitespace-pre-line">{{ $media->transcript }}</p></details>@endif
+@endif
+<figcaption class="mt-3 text-sm">{{ $media->title }} · Language: {{ $media->language }}</figcaption>
+</figure>
+@endforeach</div></section>
+@endif
 @if($lesson->isl_video_url)<section class="mt-10"><h2 class="text-2xl font-semibold">ISL video resource</h2><p class="mt-3"><a class="underline" href="{{ $lesson->isl_video_url }}" target="_blank" rel="noopener noreferrer">Open ISL video in a new tab</a></p><p class="mt-2 text-sm text-neutral-600">External video resource. Captions and accessibility depend on the provider.</p></section>@endif
 @if($lesson->isl_guidance)<section class="mt-10 border p-5"><h2 class="text-2xl font-semibold">ISL-first guidance</h2><p class="mt-3 whitespace-pre-line">{{ $lesson->isl_guidance }}</p></section>@endif
 @if($lesson->activities->isNotEmpty())<section class="mt-12"><h2 class="text-2xl font-semibold">Practise your English</h2><p class="mt-2 text-neutral-700">Type your answer and check your understanding.</p>
