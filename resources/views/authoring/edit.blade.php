@@ -1,4 +1,6 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Edit lesson — ELL</title>@vite(['resources/css/app.css','resources/js/app.js'])</head><body><main class="mx-auto max-w-3xl px-6 py-12"><a class="underline" href="{{ route('authoring.index') }}">Back to authoring</a><h1 class="mt-6 text-3xl font-bold">Edit lesson</h1>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Edit lesson — ELL</title>@vite(['resources/css/app.css','resources/js/app.js'])</head><body>
+@include('partials.site-header')
+<main id="main" class="mx-auto max-w-3xl px-6 py-12"><a class="underline" href="{{ route('authoring.index') }}">Back to authoring</a><h1 class="mt-6 text-3xl font-bold">Edit lesson</h1>
 @if($errors->any())<div role="alert" class="mt-5 border p-4">@foreach($errors->all() as $error)<p>{{ $error }}</p>@endforeach</div>@endif
 <form method="POST" action="{{ route('authoring.lessons.update',$lesson) }}" class="mt-8 space-y-5">@csrf @method('PUT')
 <label class="block">Unit<select name="curriculum_unit_id" required class="mt-1 w-full border p-3">@foreach($units as $unit)<option value="{{ $unit->id }}" @selected(old('curriculum_unit_id',$lesson->curriculum_unit_id)==$unit->id)>{{ $unit->module->title }} / {{ $unit->title }}</option>@endforeach</select></label>
@@ -32,4 +34,6 @@
 </section>
 <section class="mt-12 border-t pt-8"><h2 class="text-xl font-semibold">Delete lesson</h2><p class="mt-2">This permanently removes the lesson and its activities.</p><form method="POST" action="{{ route('authoring.lessons.destroy',$lesson) }}" class="mt-4 space-y-3">@csrf @method('DELETE')
 <label class="block">Type DELETE to confirm<input required name="confirmation" pattern="DELETE" class="mt-1 w-full border p-3" autocomplete="off"></label>
-<button class="border border-black px-5 py-3">Permanently delete lesson</button></form></section></main></body></html>
+<button class="border border-black px-5 py-3">Permanently delete lesson</button></form></section></main>
+@include('partials.site-footer')
+</body></html>
