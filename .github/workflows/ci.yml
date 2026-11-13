@@ -1,0 +1,33 @@
+name: Foundation CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, pdo_sqlite, sqlite3, xml, curl, zip, fileinfo
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+      - name: Prepare Laravel runtime directories
+        run: mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
+      - name: Audit PHP dependencies
+        run: composer audit
+      - name: Check formatting
+        run: vendor/bin/pint --test
+      - name: Run tests
+        run: php artisan test
+      - name: Install frontend dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build assets
+        run: npm run build
