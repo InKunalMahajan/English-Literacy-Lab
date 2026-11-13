@@ -30,3 +30,6 @@ See [Development Roadmap](docs/ROADMAP.md).
 
 ## Database setup decision (13 Nov 2026)
 Existing XAMPP database was verified as **MariaDB 10.4.32**, accepting authenticated connections on port 3306. The selected approach is to install a **separate MySQL 9.x Community Server** for ELL on port 3307, with a separate data directory and Windows service (planned name `MySQL9ELL`). **Installation has not started; version and ZIP package still need confirmation.** XAMPP must remain unchanged.
+
+## Implemented repository foundation (13 Nov 2026)
+Added a Laravel 13-oriented application skeleton, Blade/Tailwind landing page, module-boundary development guide, PHPUnit feature tests and GitHub Actions CI workflow. **Not yet installed or verified:** Composer/NPM dependencies, lockfiles, database server, test execution or deployment. See [Development guide](docs/DEVELOPMENT.md).
