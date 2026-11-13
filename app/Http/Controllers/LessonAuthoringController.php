@@ -91,4 +91,42 @@ class LessonAuthoringController extends Controller
         $lesson->activities()->create($data);
         return redirect()->route('authoring.index')->with('status','Activity added.');
     }
+    public function edit(Request $request, Lesson $lesson): View
+    {
+        $this->authorizeEditor($request);
+        return view('authoring.edit', [
+            'lesson' => $lesson,
+            'units' => CurriculumUnit::with('module')->orderBy('title')->get(),
+        ]);
+    }
+
+    public function update(Request $request, Lesson $lesson): RedirectResponse
+    {
+        $this->authorizeEditor($request);
+        $data = $request->validate([
+            'curriculum_unit_id' => 'required|exists:curriculum_units,id',
+            'title' => 'required|string|max:150',
+            'level' => 'required|string|max:32',
+            'topic' => 'required|string|max:80',
+            'learning_outcome' => 'required|string|max:2000',
+            'content' => 'required|string|max:20000',
+            'isl_guidance' => 'nullable|string|max:5000',
+            'isl_video_url' => 'nullable|url|starts_with:https://|max:2048',
+        ]);
+        $slug = Str::slug($data['title']);
+        if (Lesson::where('slug', $slug)->whereKeyNot($lesson->id)->exists()) {
+            return back()->withErrors(['title' => 'A lesson with this title already exists.'])->withInput();
+        }
+        $lesson->update($data + ['slug' => $slug]);
+        return redirect()->route('authoring.index')->with('status', 'Lesson updated.');
+    }
+
+    public function destroy(Request $request, Lesson $lesson): RedirectResponse
+    {
+        $this->authorizeEditor($request);
+        abort_unless($request->input('confirmation') === 'DELETE', 422, 'Deletion confirmation required.');
+        $lesson->delete();
+        return redirect()->route('authoring.index')->with('status', 'Lesson and its activities deleted.');
+    }
+
 }
