@@ -10,6 +10,7 @@ class Lesson extends Model
 {
     protected $fillable = ['slug', 'title', 'level', 'topic', 'learning_outcome', 'content', 'isl_guidance', 'is_published', 'curriculum_unit_id', 'isl_video_url'];
 
+    public function media(): HasMany { return $this->hasMany(LessonMedia::class)->orderBy('sort_order')->orderBy('id'); }
     public function unit(): BelongsTo { return $this->belongsTo(CurriculumUnit::class, 'curriculum_unit_id'); }
     public function activities(): HasMany { return $this->hasMany(LessonActivity::class)->orderBy('sort_order'); }
 
