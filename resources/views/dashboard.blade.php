@@ -11,6 +11,7 @@
         <h1 class="text-3xl font-bold">Your dashboard</h1>
         <p class="mt-4">Signed in as {{ auth()->user()->name }}.</p>
         <p class="mt-4 text-neutral-700">Learning and research workspaces will become available after role and organisation authorisation is implemented.</p>
+        <p class="mt-6"><a class="underline" href="{{ route('organizations.index') }}">Your organisations</a></p>
         <form method="POST" action="{{ route('logout') }}" class="mt-8">
             @csrf
             <button type="submit" class="rounded border border-black px-5 py-3">Sign out</button>
