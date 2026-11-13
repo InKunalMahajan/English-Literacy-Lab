@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CurriculumController;
+use App\Http\Controllers\LessonAuthoringController;
+use App\Http\Controllers\LessonActivityController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 Route::get('/curriculum', [CurriculumController::class, 'index'])->name('curriculum.index');
+Route::post('/activities/{activity}/check', [LessonActivityController::class, 'check'])->middleware('throttle:20,1')->name('activities.check');
 Route::get('/curriculum/{lesson}', [CurriculumController::class, 'show'])->name('curriculum.show');
 
 Route::middleware('guest')->group(function (): void {
@@ -15,5 +18,11 @@ Route::middleware('guest')->group(function (): void {
 
 Route::middleware('auth')->group(function (): void {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/authoring', [LessonAuthoringController::class, 'index'])->name('authoring.index');
+    Route::post('/authoring/modules', [LessonAuthoringController::class, 'module'])->name('authoring.modules.store');
+    Route::post('/authoring/units', [LessonAuthoringController::class, 'unit'])->name('authoring.units.store');
+    Route::post('/authoring/lessons', [LessonAuthoringController::class, 'lesson'])->name('authoring.lessons.store');
+    Route::post('/authoring/lessons/{lesson}/publish', [LessonAuthoringController::class, 'publish'])->name('authoring.lessons.publish');
+    Route::post('/authoring/lessons/{lesson}/activities', [LessonAuthoringController::class, 'activity'])->name('authoring.activities.store');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
