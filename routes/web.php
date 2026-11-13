@@ -22,6 +22,9 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/authoring/modules', [LessonAuthoringController::class, 'module'])->name('authoring.modules.store');
     Route::post('/authoring/units', [LessonAuthoringController::class, 'unit'])->name('authoring.units.store');
     Route::post('/authoring/lessons', [LessonAuthoringController::class, 'lesson'])->name('authoring.lessons.store');
+    Route::get('/authoring/lessons/{lesson}/edit', [LessonAuthoringController::class, 'edit'])->name('authoring.lessons.edit');
+    Route::put('/authoring/lessons/{lesson}', [LessonAuthoringController::class, 'update'])->name('authoring.lessons.update');
+    Route::delete('/authoring/lessons/{lesson}', [LessonAuthoringController::class, 'destroy'])->name('authoring.lessons.destroy');
     Route::post('/authoring/lessons/{lesson}/publish', [LessonAuthoringController::class, 'publish'])->name('authoring.lessons.publish');
     Route::post('/authoring/lessons/{lesson}/activities', [LessonAuthoringController::class, 'activity'])->name('authoring.activities.store');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
