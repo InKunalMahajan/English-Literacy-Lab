@@ -14,7 +14,7 @@ class LessonActivityController extends Controller
     {
         abort_unless($activity->lesson()->where('is_published', true)->exists(), 404);
         $data = $request->validate(['answer' => 'required|string|max:255']);
-        $normalize = static fn (string $value): string => mb_strtolower(trim($value));
+        $normalize = static fn (string $value): string => mb_strtolower(preg_replace('/\\s+/u', ' ', trim($value)));
         $correct = $normalize($data['answer']) === $normalize($activity->answer);
 
         if ($request->user() && $request->user()->is_active) {
