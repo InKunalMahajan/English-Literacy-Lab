@@ -21,3 +21,6 @@ Separate local, CI, staging and production environments. CI must include formatt
 Physical schema, exact package compatibility, research approvals and approved retention policies remain prerequisites to sensitive implementation.
 
 **Traceability:** ILL-TECH-004 → ELL-TECH-004.
+
+## Database deployment clarification (13 Nov 2026)
+Existing Windows XAMPP runs MariaDB 10.4.32 on port 3306. For ELL, the owner selected a separate MySQL 9.x server, planned port 3307 and dedicated data directory/service. This is a **planned environment change**, not an implemented database deployment. Avoid XAMPP data-directory reuse, service conflicts and committing local credentials.
