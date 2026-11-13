@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ $lesson->title }} — English Literacy Lab</title>@vite(['resources/css/app.css','resources/js/app.js'])</head><body>
-<a href="#main" class="sr-only focus:not-sr-only">Skip to content</a><header class="border-b px-6 py-5"><nav class="mx-auto flex max-w-4xl justify-between"><a class="font-bold" href="{{ route('home') }}">English Literacy Lab</a><a class="underline" href="{{ route('curriculum.index') }}">All lessons</a></nav></header>
+@include('partials.site-header')
 <main id="main" class="mx-auto max-w-4xl px-6 py-12"><p class="text-sm text-neutral-600">{{ $lesson->level }} · {{ $lesson->topic }}</p><h1 class="mt-3 text-4xl font-bold">{{ $lesson->title }}</h1>
 @if($lesson->unit)<p class="mt-3 text-neutral-600">{{ $lesson->unit->module->title }} / {{ $lesson->unit->title }}</p>@endif
 <section class="mt-10 border-l-4 border-black pl-5"><h2 class="text-xl font-semibold">Learning outcome</h2><p class="mt-2">{{ $lesson->learning_outcome }}</p></section>
@@ -68,4 +68,6 @@
 @if($errors->has('completion'))<p role="alert" class="mt-3">{{ $errors->first('completion') }}</p>@endif
 @if(session('status'))<p role="status" class="mt-3">{{ session('status') }}</p>@endif
 </section>
-</main></body></html>
+</main>
+@include('partials.site-footer')
+</body></html>
