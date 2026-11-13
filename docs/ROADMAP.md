@@ -14,7 +14,7 @@ ELL is a standalone English literacy, ISL-first learning and educational researc
 | 9 | Private lesson image uploads, alt text, HTTPS ISL video references, text equivalents, draft access protection and accessible media displays | Implemented in code; local verification pending |
 | 10 | Reading comprehension questions, existing vocabulary exercises, private writing practice with revisions and learner dashboard drafts | Implemented in code; local verification pending |
 | 11 | Untimed written lesson assessments, percentage scores, provisional mastery bands and private attempt history | Implemented in code; local verification pending |
-| 12 | Research ethics, consent and anonymised analytics | Planned |
+| 12 | Versioned optional consent and withdrawal; restricted, small-group-suppressed descriptive assessment analytics | Pilot code implemented; local verification and ethics review pending |
 | 13 | Accessibility review, hardening and deployment | Planned |
 
 ## Architecture
