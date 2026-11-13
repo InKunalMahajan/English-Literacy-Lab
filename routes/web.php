@@ -9,6 +9,7 @@ use App\Http\Controllers\LearnerDashboardController;
 use App\Http\Controllers\ActivityAuthoringController;
 use App\Http\Controllers\LessonMediaController;
 use App\Http\Controllers\WritingPracticeController;
+use App\Http\Controllers\LessonAssessmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -23,6 +24,8 @@ Route::middleware('guest')->group(function (): void {
 });
 
 Route::middleware('auth')->group(function (): void {
+    Route::get('/curriculum/{lesson}/assessment', [LessonAssessmentController::class, 'show'])->name('assessments.show');
+    Route::post('/curriculum/{lesson}/assessment', [LessonAssessmentController::class, 'submit'])->middleware('throttle:5,1')->name('assessments.submit');
     Route::get('/dashboard', [LearnerDashboardController::class, 'index'])->name('dashboard');
     Route::post('/curriculum/{lesson}/writing', [WritingPracticeController::class, 'store'])->middleware('throttle:10,1')->name('curriculum.writing.store');
     Route::post('/curriculum/{lesson}/complete', [LessonCompletionController::class, 'store'])->middleware('throttle:20,1')->name('curriculum.complete');
