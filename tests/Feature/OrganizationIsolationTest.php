@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Organization;
 use App\Models\OrganizationMembership;
 use App\Models\User;
+use App\Support\OrganizationAccess;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -51,7 +52,18 @@ class OrganizationIsolationTest extends TestCase
         $this->actingAs($teacher)->get('/organizations/'.$organization->id.'/members')->assertNotFound();
 
         $admin = $this->member($organization, 'organization_admin');
-        $this->actingAs($admin)->get('/organizations/'.$organization->id.'/members')->assertOk();
+        $this->assertDatabaseHas('organization_memberships', [
+            'organization_id' => $organization->id,
+            'user_id' => $admin->id,
+            'role' => 'organization_admin',
+            'is_active' => true,
+        ]);
+        $this->assertTrue(
+            app(OrganizationAccess::class)->allows($admin, $organization, 'members.view'),
+            'An active organization_admin should have members.view permission.'
+        );
+        $this->actingAs($admin)->get('/organizations/'.$organization->id)->assertOk();
+        $this->get('/organizations/'.$organization->id.'/members')->assertOk();
     }
 
     public function test_inactive_membership_and_inactive_organization_are_denied(): void
