@@ -21,6 +21,13 @@ class CurriculumController extends Controller
         abort_unless($lesson->is_published, 404);
 
         $lesson->load('activities', 'unit.module');
-        return view('curriculum.show', compact('lesson'));
+        $learnerProgress = auth()->check()
+            ? \App\Models\LearnerActivityProgress::query()
+                ->where('user_id', auth()->id())
+                ->whereIn('lesson_activity_id', $lesson->activities->pluck('id'))
+                ->get()->keyBy('lesson_activity_id')
+            : collect();
+
+        return view('curriculum.show', compact('lesson', 'learnerProgress'));
     }
 }
