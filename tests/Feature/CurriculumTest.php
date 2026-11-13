@@ -28,7 +28,7 @@ class CurriculumTest extends TestCase
     {
         $published = $this->lesson('everyday-english', true);
         $this->get('/curriculum')->assertOk()->assertSee('Everyday English');
-        $this->get('/curriculum/'.$published->id)->assertOk()->assertSee('Indian Sign Language guidance');
+        $this->get('/curriculum/'.$published->id)->assertOk()->assertSee('ISL-first guidance');
     }
 
     public function test_draft_lessons_are_not_public(): void
