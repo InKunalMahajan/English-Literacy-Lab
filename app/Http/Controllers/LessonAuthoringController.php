@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Illuminate\Validation\Rule;
 
 class LessonAuthoringController extends Controller
 {
@@ -35,7 +34,9 @@ class LessonAuthoringController extends Controller
         $this->authorizeEditor($request);
         $data = $request->validate(['title'=>'required|string|max:150','description'=>'nullable|string|max:1000']);
         $slug = Str::slug($data['title']);
-        $request->validate(['title'=>Rule::unique('curriculum_modules','title')]);
+        if (CurriculumModule::where('slug', $slug)->exists()) {
+            return back()->withErrors(['title'=>'A module with this name already exists.'])->withInput();
+        }
         CurriculumModule::create(['title'=>$data['title'],'slug'=>$slug,'description'=>$data['description'] ?? null]);
         return redirect()->route('authoring.index')->with('status','Module created.');
     }
@@ -48,7 +49,9 @@ class LessonAuthoringController extends Controller
             'title'=>'required|string|max:150',
         ]);
         $slug = Str::slug($data['title']);
-        $request->validate(['title'=>Rule::unique('curriculum_units','title')->where('curriculum_module_id',$data['curriculum_module_id'])]);
+        if (CurriculumUnit::where('curriculum_module_id', $data['curriculum_module_id'])->where('slug', $slug)->exists()) {
+            return back()->withErrors(['title'=>'A unit with this name already exists in this module.'])->withInput();
+        }
         CurriculumUnit::create($data + ['slug'=>$slug]);
         return redirect()->route('authoring.index')->with('status','Unit created.');
     }
@@ -69,6 +72,7 @@ class LessonAuthoringController extends Controller
         if (Lesson::where('slug',$slug)->exists()) {
             return back()->withErrors(['title'=>'A lesson with this title already exists.'])->withInput();
         }
+        unset($data['is_published']);
         Lesson::create($data + ['slug'=>$slug,'is_published'=>false]);
         return redirect()->route('authoring.index')->with('status','Lesson saved as draft.');
     }
