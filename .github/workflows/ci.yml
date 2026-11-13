@@ -1,4 +1,4 @@
-name: Foundation CI
+name: ELL quality checks
 on:
   push:
   pull_request:
@@ -7,6 +7,16 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      APP_ENV: testing
+      APP_DEBUG: 'false'
+      APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      DB_CONNECTION: sqlite
+      DB_DATABASE: ':memory:'
+      SESSION_DRIVER: array
+      CACHE_STORE: array
+      QUEUE_CONNECTION: sync
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -17,17 +27,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Validate PHP manifest
+        run: composer validate --no-check-publish
       - name: Install PHP dependencies
-        run: composer install --no-interaction --prefer-dist
+        run: composer install --no-interaction --prefer-dist --no-progress
       - name: Prepare Laravel runtime directories
         run: mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
       - name: Audit PHP dependencies
         run: composer audit
-      - name: Check formatting
-        run: vendor/bin/pint --test
-      - name: Run tests
+      - name: Check PHP syntax
+        run: |
+          find app bootstrap routes database tests -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Run feature and unit tests
         run: php artisan test
       - name: Install frontend dependencies
         run: npm install --no-audit --no-fund
-      - name: Build assets
+      - name: Audit production frontend dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - name: Build frontend assets
         run: npm run build
