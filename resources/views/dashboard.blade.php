@@ -1,6 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard — English Literacy Lab</title>@vite(['resources/css/app.css','resources/js/app.js'])</head><body>
-<a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
-<header class="border-b px-6 py-5"><nav class="mx-auto flex max-w-4xl justify-between"><a class="font-bold" href="{{ route('home') }}">English Literacy Lab</a><a class="underline" href="{{ route('curriculum.index') }}">Curriculum</a></nav></header>
+@include('partials.site-header')
 <main id="main" class="mx-auto max-w-4xl px-6 py-12"><h1 class="text-3xl font-bold">Your learning dashboard</h1><p class="mt-3">Welcome, {{ auth()->user()->name }}.</p>
 <section class="mt-8 grid gap-4 sm:grid-cols-3" aria-label="Your learning statistics">
 <div class="border p-5"><p class="text-sm">Lessons completed</p><p class="mt-2 text-3xl font-bold">{{ $completedCount }} / {{ $availableCount }}</p></div>
@@ -21,4 +20,6 @@
 @if(auth()->user()->is_content_editor)<p class="mt-8"><a class="underline" href="{{ route('authoring.index') }}">Open lesson authoring</a></p>@endif
 <section class="mt-10 border-t pt-6"><h2 class="text-xl font-semibold">Research privacy</h2><p class="mt-2">Research participation is optional and separate from learning.</p><p class="mt-3"><a class="underline" href="{{ route('research.consent') }}">Manage research participation</a></p>
 @if(auth()->user()->is_content_editor)<p class="mt-3"><a class="underline" href="{{ route('research.analytics') }}">View restricted research pilot summary</a></p>@endif</section>
-<form method="POST" action="{{ route('logout') }}" class="mt-10">@csrf<button class="border border-black px-5 py-3">Sign out</button></form></main></body></html>
+<form method="POST" action="{{ route('logout') }}" class="mt-10">@csrf<button class="border border-black px-5 py-3">Sign out</button></form></main>
+@include('partials.site-footer')
+</body></html>
